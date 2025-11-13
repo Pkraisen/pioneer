@@ -4,11 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pioneer</title>
+    <img src="" alt="" />
     <link rel="stylesheet" href="style.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css"
       rel="stylesheet"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   </head>
   <body>
     <nav class="navbar">
@@ -90,6 +93,20 @@
         <button class="dealer-button">Find a Dealer</button>
       </div>
     </div>
+
+    <section class="scroll-video-wrapper">
+      <video
+        id="scrollVideo"
+        class="scroll-video"
+        muted
+        playsinline
+        preload="auto"
+        poster="Assets/video-poster.jpg"
+      >
+        <source src="Assets/jbl.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </section>
 
     <div class="series">
       <div class="series-card">
@@ -329,7 +346,7 @@
 
           <div class="footer-copyright">
             <p>
-              &copy; 2025 Pioneer Electronics (USA) Inc. All Rights Reserved.
+              &copy; 2025 Pioneer Electronics (Global) Inc. All Rights Reserved.
             </p>
           </div>
 
