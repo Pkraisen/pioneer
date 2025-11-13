@@ -5,6 +5,9 @@
 }
 
 body {
+  margin-top: -1.1rem;
+  padding: 0;
+
   font-family: Helvetica;
 }
 
@@ -71,24 +74,36 @@ header h2 {
   cursor: pointer;
 }
 
-.left-icon {
-  display: flex;
-  color: white;
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-left: 1rem;
-  gap: 1rem;
-  align-items: center;
-}
-
+.left-icon,
 .right-icon {
   display: flex;
   color: white;
   font-size: 1.5rem;
   font-weight: 600;
   gap: 1rem;
-  margin-right: 3rem;
   align-items: center;
+}
+
+/* Optional layout spacing */
+.left-icon {
+  margin-left: 1rem;
+}
+
+.right-icon {
+  margin-right: 3rem;
+}
+
+/* Each icon inside gets hover effect separately */
+.left-icon i,
+.right-icon i {
+  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.left-icon i:hover,
+.right-icon i:hover {
+  color: red;
+  transform: scale(1.2);
 }
 
 .logo {
@@ -202,6 +217,28 @@ header h2 {
   line-height: 1.4;
 }
 
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1200px) {
+  .product-card {
+    flex: 0 1 calc(25% - 1rem);
+    max-width: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-card {
+    flex: 0 1 calc(50% - 0.75rem);
+    max-width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card {
+    flex: 0 1 calc(100% - 0rem);
+    max-width: 150px;
+  }
+}
+
 /* Best Seller section styles */
 .best-seller {
   position: relative;
@@ -219,8 +256,8 @@ header h2 {
   left: 50%;
   transform: translateX(-50%);
   color: #000000;
-  font-size: 3rem;
-  font-weight: lighter;
+  font-size: clamp(1.8rem, 4vw, 3rem); /* scales between 1.8rem–3rem */
+  font-weight: 300;
   z-index: 2;
   text-align: center;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
@@ -229,9 +266,11 @@ header h2 {
 .best-seller h3 {
   position: absolute;
   top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
   color: #ffffff;
-  font-size: 1.2rem;
-  font-weight: normal;
+  font-size: clamp(1rem, 2.5vw, 1.2rem); /* responsive font size */
+  font-weight: 400;
   z-index: 2;
   text-align: center;
 }
@@ -239,12 +278,46 @@ header h2 {
 .best-seller h2 {
   position: absolute;
   top: 23%;
+  left: 50%;
+  transform: translateX(-50%);
   color: #ffffff;
-  font-size: 2.5rem;
-  font-weight: medium;
+  font-size: clamp(1.5rem, 4vw, 2.5rem); /* scales smoothly */
+  font-weight: 500;
   z-index: 2;
   text-align: center;
 }
+
+/* 🔹 Responsive adjustments for small screens */
+@media (max-width: 768px) {
+  .best-seller-title {
+    top: 10px;
+  }
+
+  .best-seller h3 {
+    top: 18%;
+  }
+
+  .best-seller h2 {
+    top: 25%;
+  }
+}
+
+@media (max-width: 480px) {
+  .best-seller-title {
+    font-size: clamp(1.4rem, 5vw, 2rem);
+  }
+
+  .best-seller h3 {
+    top: 16%;
+    font-size: 0.95rem;
+  }
+
+  .best-seller h2 {
+    top: 22%;
+    font-size: 1.6rem;
+  }
+}
+
 .best-seller-video {
   position: absolute;
   border-radius: 20px;
@@ -312,38 +385,16 @@ header h2 {
   transform: scale(0.98);
 }
 
-/* Responsive adjustments for smaller screens */
-@media (max-width: 1200px) {
-  .product-card {
-    flex: 0 1 calc(25% - 1rem);
-    max-width: 220px;
-  }
-}
-
-@media (max-width: 768px) {
-  .product-card {
-    flex: 0 1 calc(50% - 0.75rem);
-    max-width: 180px;
-  }
-}
-
-@media (max-width: 480px) {
-  .product-card {
-    flex: 0 1 calc(100% - 0rem);
-    max-width: 150px;
-  }
-}
-
 /* Series cards: force a single row of cards with horizontal scroll on small screens */
 .series {
   display: flex;
-  gap: 3rem;
-  padding: 3rem 2rem;
-  width: 90%;
-  margin: 0 auto 4rem auto;
+  gap: 2rem;
+  padding: 2rem 1rem;
+  width: 95%;
+  margin: 0 auto 3rem auto;
   justify-content: center;
   align-items: stretch;
-  flex-wrap: nowrap; /* keep cards in one line */
+  flex-wrap: wrap; /* allow wrapping for smaller screens */
 }
 
 .series-card {
@@ -351,25 +402,31 @@ header h2 {
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   padding: 1.25rem;
-  flex: 0 0 calc(33.333% - 1rem); /* fixed third-width so three cards fit in one row */
-  min-width: 300px;
-  min-height: 550px; /* increased height for more visual weight */
+  flex: 1 1 calc(33.333% - 2rem); /* flexible third-width */
+  min-width: 280px;
+  min-height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.series-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
 .series-card h1 {
   font-size: 1.25rem;
   color: #111;
-  margin-top: 3rem;
+  margin-top: 2rem;
 }
 
 .series-card p {
   font-size: 0.95rem;
   color: #555;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .series-actions {
@@ -384,7 +441,7 @@ header h2 {
   font-weight: 600;
   cursor: pointer;
   border: solid 2px #000000;
-  transition: background 300ms ease, color 300ms ease;
+  transition: background 300ms ease, color 300ms ease, transform 200ms ease;
 }
 
 .btn.primary {
@@ -403,10 +460,10 @@ header h2 {
 
 .btn.secondary {
   color: #000;
-  border: 2px solid rgba(0, 0, 0, 0.08);
+  border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
-btn-secondary:hover {
+.btn.secondary:hover {
   background: #000;
   color: #fff;
 }
@@ -415,24 +472,10 @@ btn-secondary:hover {
   transform: scale(0.95);
 }
 
-@media (max-width: 900px) {
-  .series-card {
-    flex: 0 1 calc(50% - 1rem);
-    min-height: 360px;
-  }
-}
-
-@media (max-width: 520px) {
-  .series-card {
-    flex: 0 1 100%;
-    min-height: auto;
-  }
-}
-
 /* Series image styling */
 .series-image {
   width: 100%;
-  aspect-ratio: 4 / 3; /* taller image to match increased card height */
+  aspect-ratio: 4 / 3;
   border-radius: 10px;
   overflow: hidden;
   display: block;
@@ -445,6 +488,60 @@ btn-secondary:hover {
   display: block;
 }
 
+@media (max-width: 1200px) {
+  .series-card {
+    flex: 1 1 calc(45% - 1.5rem);
+    min-height: 420px;
+  }
+}
+
+@media (max-width: 768px) {
+  .series {
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .series-card {
+    flex: 1 1 100%;
+    min-height: auto;
+  }
+
+  .series-card h1 {
+    font-size: 1.1rem;
+  }
+
+  .series-card p {
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    padding: 0.5rem 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .series {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .series-card {
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .series-card h1 {
+    font-size: 1rem;
+  }
+
+  .series-card p {
+    font-size: 0.85rem;
+  }
+
+  .btn {
+    font-size: 0.85rem;
+  }
+}
 /* Responsive tweaks for layout elements */
 @media (max-width: 1200px) {
   .logo {
@@ -577,20 +674,169 @@ btn-secondary:hover {
     min-width: auto;
   }
 
+  /* Desktop / large screens — keep the centered, elevated title look */
   .best-seller-title {
-    position: relative;
-    top: auto;
-    transform: none;
-    margin: 1rem 0 0.5rem 0;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     color: #000;
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    font-weight: 300;
+    z-index: 2;
+    text-align: center;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    margin: 0;
+    line-height: 1.05;
   }
+
+  /* Headline / subhead that sit visually together on larger viewports */
   .best-seller h3,
   .best-seller h2 {
-    position: relative;
-    top: auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    text-align: center;
     margin: 0;
-    color: #333;
   }
+
+  /* Specific placements for h3 and h2 on larger screens */
+  .best-seller h3 {
+    top: 20%;
+    color: #fff;
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    font-weight: 400;
+  }
+
+  .best-seller h2 {
+    top: 23%;
+    color: #fff;
+    font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+    font-weight: 500;
+  }
+
+  /* Medium screens — reduce offsets and scale down slightly */
+  @media (max-width: 900px) {
+    .best-seller-title {
+      top: 12px;
+      font-size: clamp(1.6rem, 4vw, 2.25rem);
+      text-shadow: 0 1.5px 6px rgba(0, 0, 0, 0.35);
+    }
+
+    .best-seller h3 {
+      top: 18%;
+      font-size: clamp(0.95rem, 2.4vw, 1.05rem);
+    }
+
+    .best-seller h2 {
+      top: 21%;
+      font-size: clamp(1.25rem, 4vw, 1.8rem);
+    }
+  }
+
+  /* Ensure small tablets are covered too (some devices report widths >520px) */
+  @media (max-width: 600px) {
+    /* Make sure the section itself is in-flow on small screens */
+    .best-seller {
+      position: relative;
+      padding-top: 0.5rem;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+
+    /* Stronger selector to override previous absolute/centered rules */
+    .best-seller .best-seller-title {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      transform: none !important;
+      margin: 1rem 0 0.5rem 0 !important;
+      color: #000 !important;
+      font-size: clamp(1.1rem, 6.5vw, 1.6rem) !important;
+      text-align: left !important;
+      padding: 0 0.75rem !important;
+      line-height: 1.15;
+      text-shadow: none !important;
+      z-index: 3;
+    }
+
+    /* Subtitle rules — keep them stacked and readable */
+    .best-seller .best-seller-title + h3,
+    .best-seller .best-seller-title + h2,
+    .best-seller h3,
+    .best-seller h2 {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      transform: none !important;
+      margin: 0 !important;
+      color: #333 !important;
+      text-align: left !important;
+      padding: 0 0.75rem !important;
+      z-index: 3;
+    }
+
+    .best-seller h3 {
+      margin-top: 0.25rem;
+      font-size: clamp(0.9rem, 3.8vw, 1rem);
+      font-weight: 400;
+    }
+
+    .best-seller h2 {
+      margin-top: 0.15rem;
+      font-size: clamp(1.15rem, 7vw, 1.35rem);
+      font-weight: 500;
+    }
+
+    /* If header text was previously fixed with large padding (30rem etc.),
+     reduce its space for mobile to avoid pushing content down */
+    header h1,
+    header h2 {
+      padding-top: 0 !important;
+      margin-top: 0 !important;
+      white-space: normal !important;
+    }
+  }
+  /* Small screens / mobile — switch to in-flow layout (no absolute positioning),
+   darker text to match stacked layout and avoid overlap issues */
+  @media (max-width: 520px) {
+    .best-seller-title {
+      position: relative;
+      top: auto;
+      transform: none;
+      margin: 1rem 0 0.5rem 0;
+      color: #000;
+      font-size: clamp(1.25rem, 6vw, 1.6rem);
+      text-align: left; /* left-aligned usually reads better on narrow screens */
+      padding: 0 1rem;
+      text-shadow: none;
+    }
+
+    .best-seller h3,
+    .best-seller h2 {
+      position: relative;
+      top: auto;
+      transform: none;
+      margin: 0;
+      color: #333;
+      text-align: left;
+      padding: 0 1rem;
+    }
+
+    .best-seller h3 {
+      margin-top: 0.25rem;
+      font-size: 0.95rem;
+      font-weight: 400;
+    }
+
+    .best-seller h2 {
+      margin-top: 0.15rem;
+      font-size: 1.35rem;
+      font-weight: 500;
+    }
+  }
+
   .best-seller-video {
     position: relative;
     left: 0;
@@ -1026,7 +1272,7 @@ btn-secondary:hover {
 }
 
 .footer-section a:hover {
-  color: #fff;
+  color: #ff0707;
 }
 
 /* Footer Bottom */
@@ -1222,3 +1468,27 @@ btn-secondary:hover {
     opacity: 0;
   }
 }
+
+/* Wrapper remains in document flow and can be pinned by ScrollTrigger */
+.scroll-video-wrapper {
+  position: relative;
+  width: 100%;
+  height: 80vh; /* visible area for pinning/scrubbing */
+  overflow: hidden;
+  background: #ffffff; /* fallback color while video loads */
+}
+
+/* Video sits behind the overlay text */
+.scroll-video {
+  position: absolute;
+  margin-left: 2%;
+  margin-top: 10%;
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1;
+  pointer-events: none; /* let clicks pass through */
+  display: block;
+}
+
